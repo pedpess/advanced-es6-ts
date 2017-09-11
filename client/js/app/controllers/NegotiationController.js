@@ -1,29 +1,31 @@
 class NegotiationController {
+    constructor() {
+        let $ = document.querySelector.bind(document);
 
-  constructor() {
-    let $ = document.querySelector.bind(document);
+        this._inputDate = $("#date");
+        this._inputQuantity = $("#quantity");
+        this._inputValue = $("#value");
+        this._negotiationList = new NegotiatioList();
+    }
 
-    this._inputDate = $('#date');
-    this._inputQuantity = $('#quantity');
-    this._inputValue = $('#value');
-  }
+    add(event) {
+        event.preventDefault();
+        this._negotiationList.add(this._createNegotiation());
+        this._cleanForm();
+    }
 
-  add(event) {
-    event.preventDefault();
+    _createNegotiation() {
+        return new Negotiation(
+            DateHelper.textToDate(this._inputDate.value),
+            this._inputQuantity.value,
+            this._inputValue.value
+        );
+    }
 
-    let date = new Date(
-      ...this._inputDate.value
-      .split('-')
-      .map((item, index) => item - index % 2)
-    );
-
-    let negotiation = new Negotiation(
-      date,
-      this._inputQuantity.value,
-      this._inputValue.value
-    );
-
-    console.log(negotiation);
-  }
-
+    _cleanForm() {
+        this._inputDate.value = "";
+        this._inputQuantity.value = 1;
+        this._inputValue.value = 0.0;
+        this._inputDate.focus();
+    }
 }
