@@ -9,12 +9,20 @@ class NegotiationController {
 
     this._negotiationsView = new NegotiationsView($("#negotiationsView"));
     this._negotiationsView.update(this._negotiationList);
+    this._message = new Message();
+    this._messageView = new MessageView($("#messageView"));
+
+    this._messageView.update(this._message);
   }
 
   add(event) {
     event.preventDefault();
     this._negotiationList.add(this._createNegotiation());
     this._negotiationsView.update(this._negotiationList);
+
+    this._message.text = 'Negotiation Added';
+    this._messageView.update(this._message);
+
     this._cleanForm();
   }
 
