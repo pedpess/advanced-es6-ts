@@ -3,16 +3,16 @@
 var api = require('../api');
 
 module.exports  = function(app) {
-    
-    app.route('/negociacoes/semana')
-        .get(api.listaSemana);
-        
-    app.route('/negociacoes/anterior')
-        .get(api.listaAnterior);
-        
-    app.route('/negociacoes/retrasada')
-        .get(api.listaRetrasada);  
-        
-    app.route('/negociacoes')
-        .post(api.cadastraNegociacao);          
+
+    app.route('/negotiations/week')
+        .get(api.listWeek);
+
+    app.route('/negotiations/weekbefore')
+        .get(api.listWeekBefore);
+
+    app.route('/negotiations/weekbeforemore')
+        .get(api.listWeekBeforeMore);
+
+    app.route('/negotiations')
+        .post(api.addNegotiation);
 };
