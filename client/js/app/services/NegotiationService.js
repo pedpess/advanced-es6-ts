@@ -1,24 +1,80 @@
 class NegotiationService {
-  getWeekNegotiations(callback) {
-    let httpRequest = new XMLHttpRequest();
 
-    httpRequest.open('GET', 'negotiations/week');
+  getWeekNegotiations() {
 
-    httpRequest.onreadystatechange = () => {
+    return new Promise((resolve, reject) => {
+      let httpRequest = new XMLHttpRequest();
 
-      if (httpRequest.readyState == 4) {
+      httpRequest.open('GET', 'negotiations/week');
 
-        if (httpRequest.status == 200) {
-          callback(null, JSON.parse(httpRequest.responseText)
-            .map(object => new NegotiationController(new Date(object.date), object.quantity, object.value)));
+      httpRequest.onreadystatechange = () => {
 
-        } else {
-          console.log(httpRequest.responseText);
-          callback('Loading negotiations were not possible', null);
+        if (httpRequest.readyState == 4) {
+
+          if (httpRequest.status == 200) {
+            resolve(JSON.parse(httpRequest.responseText)
+              .map(object => new Negotiation(new Date(object.date), object.quantity, object.value)));
+
+          } else {
+            reject('Loading negotiations for the week were not possible', null);
+          }
         }
-      }
-    };
+      };
 
-    httpRequest.send();
+      httpRequest.send();
+
+    })
+  }
+
+  getWeekBeforeNegotiations() {
+
+    return new Promise((resolve, reject) => {
+      let httpRequest = new XMLHttpRequest();
+
+      httpRequest.open('GET', 'negotiations/weekbefore');
+
+      httpRequest.onreadystatechange = () => {
+
+        if (httpRequest.readyState == 4) {
+
+          if (httpRequest.status == 200) {
+            resolve(JSON.parse(httpRequest.responseText)
+              .map(object => new Negotiation(new Date(object.date), object.quantity, object.value)));
+
+          } else {
+            reject('Loading negotiations week before were not possible', null);
+          }
+        }
+      };
+
+      httpRequest.send();
+
+    })
+  }
+
+  getWeekBeforeMoreNegotiations() {
+
+    return new Promise((resolve, reject) => {
+      let httpRequest = new XMLHttpRequest();
+
+      httpRequest.open('GET', 'negotiations/weekbeforemore');
+
+      httpRequest.onreadystatechange = () => {
+
+        if (httpRequest.readyState == 4) {
+
+          if (httpRequest.status == 200) {
+            resolve(JSON.parse(httpRequest.responseText)
+              .map(object => new Negotiation(new Date(object.date), object.quantity, object.value)));
+
+          } else {
+            reject('Loading negotiations week before more were not possible', null);
+          }
+        }
+      };
+
+      httpRequest.send();
+
+    })
   }
 }
