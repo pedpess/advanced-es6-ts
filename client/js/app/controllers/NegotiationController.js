@@ -26,6 +26,21 @@ class NegotiationController {
     this._cleanForm();
   }
 
+  importNegotiations() {
+    let service = new NegotiationService();
+
+    service.getWeekNegotiations((error, negotiations) => {
+
+      if (error) {
+        this._message.text = error;
+        return;
+      }
+
+      negotiations.forEach(negotiation => this._negotiationList.add(negotiation));
+      this._message.text = 'Negotiations were imported';
+    });
+  }
+
   delete() {
     this._negotiationList.emptyList();
     this._message.text = "Negotiations were deleted";
