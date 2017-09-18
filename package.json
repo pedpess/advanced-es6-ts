@@ -1,0 +1,18 @@
+{
+  "name": "negotiations",
+  "version": "1.0.0",
+  "description": "Simple negotiation application to learn ES6",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "es6",
+    "mvc"
+  ],
+  "author": "Pedro Pessoa",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint-config-google": "^0.9.1"
+  }
+}
