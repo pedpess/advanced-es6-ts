@@ -29,16 +29,12 @@ class NegotiationController {
   importNegotiations() {
     let service = new NegotiationService();
 
-    Promise.all([
-      service.getWeekNegotiations(),
-      service.getWeekBeforeNegotiations(),
-      service.getWeekBeforeMoreNegotiations()
-    ]).then(negotiations => {
-      negotiations
-        .reduce((reducedArray, originalArray) => reducedArray.concat(originalArray), [])
-        .forEach(negotiation => this._negotiationList.add(negotiation));
-      this._message.text = 'Negotiations were imported.';
-    })
+    service.getNegotiations()
+      .then(negotiations => {
+        negotiations
+          .forEach(negotiation => this._negotiationList.add(negotiation));
+        this._message.text = 'Negotiations were imported.';
+      })
       .catch(error => this._message.text = error);
   }
 

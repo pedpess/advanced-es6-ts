@@ -1,80 +1,81 @@
 class NegotiationService {
 
-  getWeekNegotiations() {
+  constructor() {
 
-    return new Promise((resolve, reject) => {
-      let httpRequest = new XMLHttpRequest();
+    this._httpService = new HttpService();
+  }
 
-      httpRequest.open('GET', 'negotiations/week');
+  getNegotiations() {
 
-      httpRequest.onreadystatechange = () => {
+    return Promise.all([
+      this.getWeekNegotiations(),
+      this.getWeekBeforeNegotiations(),
+      this.getWeekBeforeMoreNegotiations()
+    ]).then(periods => {
 
-        if (httpRequest.readyState == 4) {
+      let negotiations = periods
+        .reduce((reducedArray, period) => reducedArray.concat(period), []);
 
-          if (httpRequest.status == 200) {
-            resolve(JSON.parse(httpRequest.responseText)
-              .map(object => new Negotiation(new Date(object.date), object.quantity, object.value)));
-
-          } else {
-            reject('Loading negotiations for the week were not possible', null);
-          }
-        }
-      };
-
-      httpRequest.send();
+      return negotiations;
 
     })
+      .catch(error => {
+        throw new Error(error);
+      });
+  }
+
+
+  getWeekNegotiations() {
+
+
+
+    return this._httpService
+      .get('negotiations/week')
+      .then(negotiations => {
+        console.log(negotiations);
+        return negotiations.map(object => new Negotiation(new Date(object.date), object.quantity, object.value));
+      })
+      .catch(error => {
+        console.log(error);
+        throw new Error('Loading negotiations for the week were not possible');
+      });
+
+
   }
 
   getWeekBeforeNegotiations() {
 
-    return new Promise((resolve, reject) => {
-      let httpRequest = new XMLHttpRequest();
 
-      httpRequest.open('GET', 'negotiations/weekbefore');
 
-      httpRequest.onreadystatechange = () => {
+    return this._httpService
+      .get('negotiations/weekbefore')
+      .then(negotiations => {
+        console.log(negotiations);
+        return negotiations.map(object => new Negotiation(new Date(object.date), object.quantity, object.value));
+      })
+      .catch(error => {
+        console.log(error);
+        throw new Error('Loading negotiations for the week before were not possible');
+      });
 
-        if (httpRequest.readyState == 4) {
 
-          if (httpRequest.status == 200) {
-            resolve(JSON.parse(httpRequest.responseText)
-              .map(object => new Negotiation(new Date(object.date), object.quantity, object.value)));
-
-          } else {
-            reject('Loading negotiations week before were not possible', null);
-          }
-        }
-      };
-
-      httpRequest.send();
-
-    })
   }
 
   getWeekBeforeMoreNegotiations() {
 
-    return new Promise((resolve, reject) => {
-      let httpRequest = new XMLHttpRequest();
 
-      httpRequest.open('GET', 'negotiations/weekbeforemore');
 
-      httpRequest.onreadystatechange = () => {
+    return this._httpService
+      .get('negotiations/weekbeforemore')
+      .then(negotiations => {
+        console.log(negotiations);
+        return negotiations.map(object => new Negotiation(new Date(object.date), object.quantity, object.value));
+      })
+      .catch(error => {
+        console.log(error);
+        throw new Error('Loading negotiations for the week before more were not possible');
+      });
 
-        if (httpRequest.readyState == 4) {
 
-          if (httpRequest.status == 200) {
-            resolve(JSON.parse(httpRequest.responseText)
-              .map(object => new Negotiation(new Date(object.date), object.quantity, object.value)));
-
-          } else {
-            reject('Loading negotiations week before more were not possible', null);
-          }
-        }
-      };
-
-      httpRequest.send();
-
-    })
   }
 }
