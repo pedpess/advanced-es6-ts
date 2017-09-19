@@ -7,10 +7,12 @@ class NegotiationController {
     this._inputQuantity = $("#quantity");
     this._inputValue = $("#value");
 
+    this._currentOrder = '';
+
     this._negotiationList = new Bind(
       new NegotiationList(),
       new NegotiationsView($("#negotiationsView")),
-      'add', 'emptyList');
+      'add', 'emptyList', 'order', 'invertOrder');
 
     this._message = new Bind(
       new Message(),
@@ -24,6 +26,15 @@ class NegotiationController {
     this._negotiationList.add(this._createNegotiation());
     this._message.text = "Negotiation Added";
     this._cleanForm();
+  }
+
+  order(column) {
+    if (this._currentOrder == column) {
+      this._negotiationList.invertOrder();
+    } else {
+      this._negotiationList.order((a, b) => a[column] - b[column]);
+    }
+    this._currentOrder = column;
   }
 
   importNegotiations() {

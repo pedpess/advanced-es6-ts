@@ -8,6 +8,14 @@ class NegotiationList {
     this._negotiation.push(negotiation);
   }
 
+  order(criteria) {
+    this._negotiation.sort(criteria);
+  }
+
+  invertOrder() {
+    this._negotiation.reverse();
+  }
+
   get negotiations() {
     return [].concat(this._negotiation);
   }
