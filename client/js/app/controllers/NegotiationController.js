@@ -69,18 +69,14 @@ class NegotiationController {
 
   importNegotiations() {
 
-
     this._service
-      .getNegotiations()
-      .then(negotiations =>
-        negotiations.filter(negotiation =>
-          !this._negotiationList.negotiations.some(existingNegotiation => JSON.stringify(negotiation) == JSON.stringify(existingNegotiation))))
-      .then(negotiations => {
-        negotiations
-          .forEach(negotiation => this._negotiationList.add(negotiation));
+      .import(this._negotiationList.negotiations)
+      .then(negotiations => negotiations.forEach(negotiation => {
+        this._negotiationList.add(negotiation);
         this._message.text = 'Negotiations were imported.';
-      })
+      }))
       .catch(error => this._message.text = error);
+
   }
 
   delete() {

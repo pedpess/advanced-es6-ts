@@ -1,54 +1,27 @@
 class HttpService {
 
+  _handleErrors(res) {
+    if (!res.ok) throw new Error('Not possible to load the data');
+    return res;
+  }
+
   get(url) {
-    return new Promise((resolve, reject) => {
 
-      let httpRequest = new XMLHttpRequest();
-
-      httpRequest.open('GET', url);
-
-      httpRequest.onreadystatechange = () => {
-
-        if (httpRequest.readyState == 4) {
-
-          if (httpRequest.status == 200) {
-            resolve(JSON.parse(httpRequest.responseText));
-          } else {
-            reject(httpRequest.responseText);
-          }
-        }
-      };
-
-      httpRequest.send();
-    })
+    return fetch(url)
+      .then(res => this._handleErrors(res))
+      .then(res => res.json());
   }
 
   post(url, data) {
 
-    return new Promise((resolve, reject) => {
-
-      let httpRequest = new XMLHttpRequest();
-
-      httpRequest.open('POST', url, true);
-
-      httpRequest.setRequestHeader("Content-type", "application/json");
-
-      httpRequest.onreadystatechange = () => {
-
-        if (httpRequest.readyState == 4) {
-
-          if (httpRequest.status == 200) {
-
-            resolve(JSON.parse(httpRequest.responseText));
-          } else {
-            reject(httpRequest.responseText);
-          }
-        }
-      };
-
-      httpRequest.send(JSON.stringify(data))
+    return fetch(url, {
+      header: {
+        'Content-type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify(data)
     })
+      .then(res => this._handleErrors(res));
 
   }
-
 }

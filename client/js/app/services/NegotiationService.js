@@ -117,5 +117,19 @@ class NegotiationService {
         throw new Error('Negotiations were not deleted.');
       })
   }
+
+  import(currentList) {
+
+    return this
+      .getNegotiations()
+      .then(negotiations =>
+        negotiations.filter(negotiation =>
+          !this._negotiationList.negotiations.some(existingNegotiation =>
+            JSON.stringify(negotiation) == JSON.stringify(existingNegotiation))))
+      .catch(error => {
+        console.log(error);
+        throw new Error('Not possible to search for negotiations to be imported');
+      })
+  }
 }
 
