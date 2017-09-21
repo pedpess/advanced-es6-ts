@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm test",
-    "build": "babel client/js/app-es6 -d client/js/app"
+    "build": "babel client/js/app-es6 -d client/js/app --source-maps"
   },
   "keywords": [
     "es6",
