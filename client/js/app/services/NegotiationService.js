@@ -78,4 +78,44 @@ class NegotiationService {
 
 
   }
+
+  addNegotiation(negotiation) {
+
+    return ConnectionFactory
+      .getConnection()
+      .then(connection => new NegotiationDao(connection))
+      .then(dao => dao.addNegotiation(negotiation))
+      .then(() => 'Negotiation was added.')
+      .catch(() => {
+        console.log(error);
+        throw new Error('Negotiation was not added');
+      });
+  }
+
+  listNegotiations() {
+
+    return ConnectionFactory
+      .getConnection()
+      .then(connection => new NegotiationDao(connection))
+      .then(dao => dao.listAll())
+      .catch(error => {
+        console.log(error);
+        throw new Error('Negotiation was not added');
+      });
+
+  }
+
+  delete() {
+
+    return ConnectionFactory
+      .getConnection()
+      .then(connection => new NegotiationDao(connection))
+      .then(dao => dao.clearAll())
+      .then(() => 'Negotiations were deleted.')
+      .catch(error => {
+        console.log(error);
+        throw new Error('Negotiations were not deleted.');
+      })
+  }
 }
+

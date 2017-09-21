@@ -7,7 +7,6 @@ class NegotiationController {
     this._inputQuantity = $("#quantity");
     this._inputValue = $("#value");
 
-    this._currentOrder = '';
 
     this._negotiationList = new Bind(
       new NegotiationList(),
@@ -19,13 +18,44 @@ class NegotiationController {
       new MessageView($("#messageView")),
       'text');
 
+    this._currentOrder = '';
+
+    this._service = new NegotiationService();
+
+    this._init();
+
+
+  }
+
+  _init() {
+
+    this._service
+      .listNegotiations()
+      .then(negotiation => {
+        negotiations.forEach(negotiation =>
+          this._negotiationList.add(negotiation))
+      })
+      .catch(error => this._message.text = error);
+
+    setInterval(() => {
+      this.importNegotiations();
+    }, 2000);
   }
 
   add(event) {
+
     event.preventDefault();
-    this._negotiationList.add(this._createNegotiation());
-    this._message.text = "Negotiation Added";
-    this._cleanForm();
+
+    let negotiation = this._createNegotiation();
+
+    this._service
+      .addNegotiation(negotiation)
+      .then(message => {
+        this._negotiationList.add(negotiation);
+        this._message.text = message;
+        this._cleanForm();
+      })
+      .catch(error => this._message.text = error);
   }
 
   order(column) {
@@ -38,9 +68,13 @@ class NegotiationController {
   }
 
   importNegotiations() {
-    let service = new NegotiationService();
 
-    service.getNegotiations()
+
+    this._service
+      .getNegotiations()
+      .then(negotiations =>
+        negotiations.filter(negotiation =>
+          !this._negotiationList.negotiations.some(existingNegotiation => JSON.stringify(negotiation) == JSON.stringify(existingNegotiation))))
       .then(negotiations => {
         negotiations
           .forEach(negotiation => this._negotiationList.add(negotiation));
@@ -50,15 +84,22 @@ class NegotiationController {
   }
 
   delete() {
-    this._negotiationList.emptyList();
-    this._message.text = "Negotiations were deleted";
+
+    this._service
+      .delete()
+      .then(message => {
+        this._message.text = message;
+        this._negotiationList.emptyList();
+      })
+      .catch(error => this._message.text = error);
+
   }
 
   _createNegotiation() {
     return new Negotiation(
       DateHelper.textToDate(this._inputDate.value),
-      this._inputQuantity.value,
-      this._inputValue.value
+      parseInt(this._inputQuantity.value),
+      parseFloat(this._inputValue.value)
     );
   }
 
