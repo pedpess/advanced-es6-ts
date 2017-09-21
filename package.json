@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm test",
-    "build": "babel js/app-es6 -d js/app"
+    "build": "babel client/js/app-es6 -d client/js/app"
   },
   "keywords": [
     "es6",
