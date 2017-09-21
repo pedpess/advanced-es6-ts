@@ -47,3 +47,4 @@ var NegotiationList = function () {
 
   return NegotiationList;
 }();
+//# sourceMappingURL=NegotiationList.js.map

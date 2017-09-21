@@ -38,3 +38,4 @@ var Negotiation = function () {
 
   return Negotiation;
 }();
+//# sourceMappingURL=Negotiation.js.map

@@ -26,3 +26,4 @@ var MessageView = function (_View) {
 
     return MessageView;
 }(View);
+//# sourceMappingURL=MessageView.js.map

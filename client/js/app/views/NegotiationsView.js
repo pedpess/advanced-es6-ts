@@ -28,3 +28,4 @@ var NegotiationsView = function (_View) {
 
     return NegotiationsView;
 }(View);
+//# sourceMappingURL=NegotiationsView.js.map

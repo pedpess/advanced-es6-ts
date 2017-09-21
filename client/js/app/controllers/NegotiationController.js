@@ -114,3 +114,4 @@ var NegotiationController = function () {
 
   return NegotiationController;
 }();
+//# sourceMappingURL=NegotiationController.js.map
