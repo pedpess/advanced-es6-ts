@@ -4,7 +4,8 @@
   "description": "Simple negotiation application to learn ES6",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "build": "babel js/app-es6 -d js/app"
   },
   "keywords": [
     "es6",
@@ -13,6 +14,8 @@
   "author": "Pedro Pessoa",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0",
     "eslint-config-google": "^0.9.1"
   }
 }
