@@ -7,7 +7,7 @@ import {DateHelper} from '../helpers/DateHelper';
 import {Bind} from '../helpers/Bind';
 import {Negotiation} from '../models/Negotiation';
 
-class NegotiationController {
+export class NegotiationController {
   constructor() {
 
     let $ = document.querySelector.bind(document);

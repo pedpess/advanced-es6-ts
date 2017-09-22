@@ -39,24 +39,12 @@
     <br>
     <br>
     <div id="negotiationsView"></div>
-    <script src="js/app/models/Negotiation.js"></script>
-    <script src="js/app/controllers/NegotiationController.js"></script>
-    <script src="js/app/helpers/DateHelper.js"></script>
-    <script src="js/app/models/NegotiationList.js"></script>
-    <script src="js/app/views/View.js"></script>
-    <script src="js/app/views/NegotiationsView.js"></script>
-    <script src="js/app/models/Message.js"></script>
-    <script src="js/app/views/MessageView.js"></script>
-    <script src="js/app/services/ProxyFactory.js"></script>
-    <script src="js/app/helpers/Bind.js"></script>
-    <script src="js/app/services/NegotiationService.js"></script>
-    <script src="js/app/services/HttpService.js"></script>
-    <script src="js/app/services/ConnectionFactory.js"></script>
-    <script src="js/app/dao/NegotiationDao.js"></script>
+    <script src="../node_modules/systemjs/dist/system.js"></script>
     <script>
-        var negotiationController = new NegotiationController();
+        System.defaultJSExtensions = true;
+        System.import('./js/app/boot')
+            .catch(error => console.error(error));
     </script>
-
 </body>
 
 </html>
