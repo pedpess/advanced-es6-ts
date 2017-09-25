@@ -1,12 +1,13 @@
-import {View} from './View';
+import { Negotiation } from './../models/Negotiation';
+import { View } from './View';
 
-export class MessageView extends View {
+export class MessageView extends View<string> {
 
     constructor(element) {
         super(element);
     }
 
-    template(model) {
-        return model.text ? `<p class ="alert alert-info">${model.text}</p>` : `<p></p>`;
+    template(model: string): string {
+        return `<p class ="alert alert-info">${model}</p>`;
     }
 }

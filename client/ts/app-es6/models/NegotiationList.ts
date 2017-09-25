@@ -1,10 +1,14 @@
+import { Negotiation } from './Negotiation';
 export class NegotiationList {
+
+  private _negotiation: Array<Negotiation> = [];
+
   constructor() {
     this._negotiation = [];
 
   }
 
-  add(negotiation) {
+  add(negotiation: Negotiation): void {
     this._negotiation.push(negotiation);
   }
 
@@ -16,7 +20,7 @@ export class NegotiationList {
     this._negotiation.reverse();
   }
 
-  get negotiations() {
+  get negotiations(): Array<Negotiation> {
     return [].concat(this._negotiation);
   }
 

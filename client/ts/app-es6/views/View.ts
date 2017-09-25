@@ -1,13 +1,14 @@
-export class View {
-    constructor(element) {
-        this._element = element;
+export abstract class View<T> {
+
+    private _element: Element;
+
+    constructor(selector: string) {
+        this._element = document.querySelector(selector);
     }
 
-    template() {
-        throw new Error('Method template should be implemented');
-    }
+    abstract template(model: T): string;
 
-    update(model) {
-        this._element.innerHTML = this.template(model);
+    update(model: T) {
+        return this._element.innerHTML = this.template(model);
     }
 }
