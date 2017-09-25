@@ -1,8 +1,7 @@
 export class Negotiation {
-  constructor(date, quantity, value) {
-    this._date = new Date(date.getTime());
-    this._quantity = quantity;
-    this._value = value;
+  constructor(private _date: Date,
+    private _quantity: number,
+    private _value: number) {
     Object.freeze(this);
   }
 

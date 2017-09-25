@@ -8,13 +8,23 @@ import {Bind} from '../helpers/Bind';
 import {Negotiation} from '../models/Negotiation';
 
 export class NegotiationController {
+
+  private _inputDate: HTMLInputElement;
+  private _inputQuantity: HTMLInputElement;
+  private _inputValue: HTMLInputElement;
+  private _negotiationList;
+  private _message;
+  private _currentOrder;
+  private _service;
+
+
   constructor() {
 
-    let $ = document.querySelector.bind(document);
+    //let $ = <HTMLInputElement>document.querySelector.bind(document);
 
-    this._inputDate = $("#date");
-    this._inputQuantity = $("#quantity");
-    this._inputValue = $("#value");
+    this._inputDate = <HTMLInputElement>document.querySelector('#date');
+    this._inputQuantity = <HTMLInputElement>document.querySelector('#quantity');
+    this._inputValue = <HTMLInputElement>document.querySelector('#value');
 
 
     this._negotiationList = new Bind(
@@ -51,7 +61,7 @@ export class NegotiationController {
     }, 2000);
   }
 
-  add(event) {
+  add(event: Event) {
 
     event.preventDefault();
 
