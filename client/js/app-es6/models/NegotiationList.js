@@ -1,3 +1,5 @@
+import { Negotiation } from './Negotiation';
+
 export class NegotiationList {
   constructor() {
     this._negotiation = [];
