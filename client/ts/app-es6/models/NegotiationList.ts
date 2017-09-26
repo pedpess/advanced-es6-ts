@@ -12,16 +12,12 @@ export class NegotiationList {
     this._negotiation.push(negotiation);
   }
 
-  order(criteria) {
-    this._negotiation.sort(criteria);
-  }
-
   invertOrder() {
     this._negotiation.reverse();
   }
 
   get negotiations(): Array<Negotiation> {
-    return [].concat(this._negotiation);
+    return ([] as Array<Negotiation>).concat(this._negotiation);
   }
 
   emptyList() {

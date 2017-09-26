@@ -1,7 +1,6 @@
 import { View } from './View';
 import { NegotiationController } from './../controllers/NegotiationController';
 import { NegotiationList } from './../models/NegotiationList';
-
 import { DateHelper } from '../helpers/DateHelper'
 
 export class NegotiationsView extends View<NegotiationList>{
@@ -39,10 +38,4 @@ export class NegotiationsView extends View<NegotiationList>{
         </table>
         `;
     }
-}
-
-let negotiationController = new NegotiationController();
-export function currentInstance() {
-
-    return negotiationController;
 }
