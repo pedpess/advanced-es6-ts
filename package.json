@@ -7,7 +7,7 @@
     "test": "npm test",
     "build": "babel client/js/app-es6 -d client/js/app --source-maps",
     "watch": "tsc -w",
-    "server": "lite-server --baseDir=app",
+    "server": "lite-server --baseDir=client",
     "start": "concurrently \"npm run watch\" \"npm run server\""
   },
   "keywords": [
