@@ -1,7 +1,5 @@
 import { View } from './View';
-import { NegotiationController } from './../controllers/NegotiationController';
 import { NegotiationList } from './../models/NegotiationList';
-import { DateHelper } from '../helpers/DateHelper'
 
 export class NegotiationsView extends View<NegotiationList>{
 
@@ -22,7 +20,7 @@ export class NegotiationsView extends View<NegotiationList>{
             ${model.negotiations.map(negotiation =>
                 `
                 <tr>
-                    <td>${DateHelper.dateToText(negotiation.date)}</td>
+                    <td>${negotiation.date.getDate()}/${negotiation.date.getMonth() +1}/${negotiation.date.getFullYear()}</td>
                     <td>${negotiation.quantity}</td>
                     <td>${negotiation.value}</td>
                     <td>${negotiation.volume}</td>
@@ -30,10 +28,6 @@ export class NegotiationsView extends View<NegotiationList>{
                 `).join("")}
         </tbody>
         <tfoot>
-            <td colspan="3"></td>
-            <td>
-                ${model.totalVolume}
-            </td>
         </tfoot>
         </table>
         `;

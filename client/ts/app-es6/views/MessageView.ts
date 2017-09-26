@@ -1,4 +1,4 @@
-import { Negotiation } from './../models/Negotiation';
+
 import { View } from './View';
 
 export class MessageView extends View<string> {
