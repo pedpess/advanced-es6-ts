@@ -6,8 +6,10 @@
   "scripts": {
     "test": "npm test",
     "build": "babel client/js/app-es6 -d client/js/app --source-maps",
-    "watch": "babel client/js/app-es6 -d client/js/app --source-maps --watch",
-    "start": "tsc -w"
+    //"watch": "babel client/js/app-es6 -d client/js/app --source-maps --watch",
+    "watch": "tsc -w",
+    "server": "lite-server --baseDir=app",
+    "start": "concurrently \"npm run watch\" \"npm run server\""
   },
   "keywords": [
     "es6",
@@ -21,6 +23,7 @@
     "babel-plugin-transform-es2015-modules-systemjs": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
     "eslint-config-google": "^0.9.1",
+    "lite-server": "^2.3.0",
     "typescript": "^2.3.2"
   },
   "dependencies": {
