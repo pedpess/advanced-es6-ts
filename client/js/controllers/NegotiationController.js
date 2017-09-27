@@ -36,7 +36,24 @@ System.register(["./../views/index", "../models/index", "../helpers/decorators/i
                     this._messageView.update('Negotiation was added.');
                 }
                 _isWorkingDay(date) {
-                    return date.getDay() != WorkingDay.Saturday && date.getDay() != WorkingDay.Sunday;
+                    return (date.getDay() != WorkingDay.Saturday && date.getDay() != WorkingDay.Sunday);
+                }
+                importNegotiations() {
+                    function isFetched(res) {
+                        if (res.ok) {
+                            return res;
+                        }
+                        else {
+                            throw new Error(res.statusText);
+                        }
+                    }
+                    fetch('http://localhost:8080/negotiations/week')
+                        .then(res => isFetched(res))
+                        .then(res => res.json())
+                        .then((dataList) => dataList
+                        .map(data => new index_2.Negotiation(new Date(), data.quantity, data.value))
+                        .forEach(negotiation => this._negotiationList.add(negotiation)))
+                        .catch(error => console.log(error));
                 }
             };
             __decorate([

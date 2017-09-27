@@ -1,12 +1,13 @@
 export class Negotiation {
-  constructor(readonly date: Date,
+  constructor(
+    readonly date: Date,
     readonly quantity: number,
-    readonly value: number) {
+    readonly value: number
+  ) {
     Object.freeze(this);
   }
 
   get volume() {
     return this.quantity * this.value;
   }
-
 }
